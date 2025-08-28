@@ -1,0 +1,11 @@
+Flask==3.0.0
+google-cloud-datastore==2.15.1
+google-cloud-secret-manager
+requests==2.31.0
+six==1.16.0
+python-jose
+google-cloud-storage
+sqlalchemy
+flasgger
+python-dotenv
+flask_swagger_ui

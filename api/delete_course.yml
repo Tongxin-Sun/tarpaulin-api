@@ -1,0 +1,44 @@
+tags:
+  - Course
+operationId: delete_course
+summary: Delete a course
+description: >
+  Delete a course. This also deletes enrollment of all students in the course.
+  The instructor teaching the course will no longer be associated with it.
+  Only users with the role `admin` can delete courses.
+security:
+  - bearerAuth: []
+parameters:
+  - name: "Authorization"
+    in: "header"
+    description: "JWT token in Bearer format"
+    required: true
+    type: string
+  - name: course_id
+    in: path
+    description: "ID of the course"
+    required: true
+    type: integer
+responses:
+  "204":
+    description: Course successfully deleted, no content returned
+  "401":
+    description: Unauthorized – JWT missing or invalid
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: "JWT missing or invalid"
+  "403":
+    description: Forbidden – JWT valid but user not an admin or course does not exist
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: "User not authorized to delete this course"

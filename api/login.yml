@@ -1,0 +1,55 @@
+tags:
+  - User Login
+summary: User Login
+description: >
+  Generate a JWT for a registered user of the app by sending a request
+  to the Auth0 domain created for the REST API to get a token.
+  Note: You need to pre-create 9 users in Auth0 as described in the assignment’s "Users" section.
+consumes:
+  - application/json
+produces:
+  - application/json
+parameters:
+  - in: body
+    name: body
+    description: User login credentials
+    required: true
+    schema:
+      type: object
+      required:
+        - username
+        - password
+      properties:
+        username:
+          type: string
+          example: admin@osu.com
+        password:
+          type: string
+          format: password
+          example: Cheese1234!
+responses:
+  200:
+    description: Successful login, returns JWT token
+    schema:
+      type: object
+      properties:
+        token:
+          type: string
+          description: JSON Web Token (JWT)
+          example: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...
+  400:
+    description: Bad request, invalid or missing body attributes
+    schema:
+      type: object
+      properties:
+        error:
+          type: string
+          example: The request body is invalid
+  401:
+    description: Username and/or password is incorrect
+    schema:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Unauthorized

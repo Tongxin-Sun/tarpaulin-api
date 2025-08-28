@@ -1,0 +1,82 @@
+tags:
+  - Course
+operationId: create_course
+summary: Create a course
+description: >
+  Create a new course. The `instructor_id` in the request body must match
+  an instructor in the `users` kind in Datastore.
+  Only users with the role `admin` can create courses.
+security:
+  - bearerAuth: []
+parameters:
+  - name: "Authorization"
+    in: "header"
+    description: "JWT token in Bearer format"
+    required: true
+    type: "string"
+  - name: "body"
+    in: "body"
+    required: true
+    schema:
+      type: object
+      required:
+        - subject
+        - number
+        - title
+        - term
+        - instructor_id
+      properties:
+        subject:
+          type: string
+          maxLength: 4
+          example: "CS"
+        number:
+          type: integer
+          example: 493
+        title:
+          type: string
+          maxLength: 50
+          example: "Cloud Application Development"
+        term:
+          type: string
+          maxLength: 10
+          example: "fall-24"
+        instructor_id:
+          type: integer
+          example: 5644004762845184
+
+responses:
+  "201":
+    description: Course successfully created
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            id:
+              type: integer
+              example: 5710353417633792
+            instructor_id:
+              type: integer
+              example: 5644004762845184
+            number:
+              type: integer
+              example: 493
+            self:
+              type: string
+              example: "http://localhost:8080/courses/5710353417633792"
+            subject:
+              type: string
+              example: "CS"
+            term:
+              type: string
+              example: "fall-24"
+            title:
+              type: string
+              example: "Cloud Application Development"
+  "400":
+    description: Bad Request – missing attributes or invalid instructor_id
+  "401":
+    description: Unauthorized – JWT missing or invalid
+  "403":
+    description: Forbidden – JWT valid but user not an admin

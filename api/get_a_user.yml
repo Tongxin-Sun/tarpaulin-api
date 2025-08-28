@@ -1,0 +1,65 @@
+tags:
+  - User
+summary: Get a user
+description: |
+  Return the details of a user. Only accessible by:
+  - Admin users
+  - The user whose ID is specified in the path parameter.
+security:
+  - bearerAuth: []
+produces:
+  - application/json
+parameters:
+  - in: header
+    name: Authorization
+    type: string
+    required: true
+    description: Bearer JWT token
+  - in: path
+    name: user_id
+    type: integer
+    required: true
+    description: ID of the user
+responses:
+  200:
+    description: Successful response with user details
+    schema:
+      type: object
+      required:
+        - id
+        - role
+        - sub
+      properties:
+        id:
+          type: integer
+          example: 5631671361601536
+        role:
+          type: string
+          example: student
+        sub:
+          type: string
+          example: auth0|664384d7829d72375c7a034d
+        avatar_url:
+          type: string
+          example: http://localhost:8080/users/5644004762845184/avatar
+        courses:
+          type: array
+          items:
+            type: string
+            example: http://localhost:8080/courses/5744039651442688
+  401:
+    description: Unauthorized – JWT is missing or invalid
+    schema:
+      type: object
+      properties:
+        error:
+          type: string
+          example: JWT is missing or invalid
+  403:
+    description: Forbidden – JWT is valid but user not authorized
+    schema:
+      type: object
+      properties:
+        error:
+          type: string
+          example: User is not authorized

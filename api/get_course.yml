@@ -1,0 +1,49 @@
+tags:
+  - Course
+operationId: get_course
+summary: Get a course
+description: >
+  Retrieve an existing course by its ID. The response does not include the list of
+  students enrolled in the course.
+security: []
+parameters:
+  - name: course_id
+    in: path
+    description: ID of the course
+    required: true
+    type: integer
+responses:
+  "200":
+    description: Course successfully retrieved
+    schema:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 5667525748588544
+        instructor_id:
+          type: integer
+          example: 5644004762845184
+        number:
+          type: integer
+          example: 493
+        self:
+          type: string
+          example: "http://localhost:8080/courses/5667525748588544"
+        subject:
+          type: string
+          example: "CS"
+        term:
+          type: string
+          example: "fall-24"
+        title:
+          type: string
+          example: "Cloud Application Development"
+  "404":
+    description: No course with this ID exists
+    schema:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Course not found"

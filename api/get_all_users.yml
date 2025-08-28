@@ -1,0 +1,56 @@
+tags:
+  - Users
+summary: Get all users
+description: Return an array with all 9 pre-created users from the kind “users” in Datastore. 
+               Each user in the response has exactly 3 properties “id”, “role” and “sub” properties. 
+               Only admin users can access this endpoint.
+security:
+  - bearerAuth: []
+consumes:
+  - application/json
+produces:
+  - application/json
+parameters:
+  - in: header
+    name: Authorization
+    type: string
+    required: true
+    description: Bearer JWT token
+responses:
+  200:
+    description: Returns an array of users
+    schema:
+      type: array
+      items:
+        type: object
+        required:
+          - id
+          - role
+          - sub
+        properties:
+          id:
+            type: integer
+            example: 5631671361601536
+          role:
+            type: string
+            example: student
+          sub:
+            type: string
+            example: auth0|664384d7829d72375c7a034d
+  401:
+    description: Unauthorized
+    schema:
+      type: object
+      properties:
+        error:
+          type: string
+          example: JWT is missing or invalid
+  403:
+    description: Forbidden
+    schema:
+      type: object
+      properties:
+        error:
+          type: string
+          example: User is not authorized
+

@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+.env
+*.sqlite3
+
+# IDEs
+.vscode/
+.idea/
+
+# Google Cloud
+app.yaml
+*.key
+
+# Ignore gcloudignore
+.gcloudignore
+
+main_original.py

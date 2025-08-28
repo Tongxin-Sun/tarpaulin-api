@@ -1,0 +1,75 @@
+tags:
+  - Enrollment
+operationId: update_course_enrollment
+summary: Update enrollment in a course
+description: >
+  Enroll and/or disenroll students from a course. Only users with the admin role
+  or the instructor of this course can perform this action.
+security:
+  - bearerAuth: []
+parameters:
+  - name: "Authorization"
+    in: "header"
+    description: "JWT token in Bearer format"
+    required: true
+    type: string
+  - name: course_id
+    in: path
+    description: "ID of the course"
+    required: true
+    type: integer
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - add
+          - remove
+        properties:
+          add:
+            type: array
+            items:
+              type: integer
+            description: "Array of student IDs to enroll"
+            example: [5642368648740864, 5714489739575296]
+          remove:
+            type: array
+            items:
+              type: integer
+            description: "Array of student IDs to remove"
+            example: [5636645067948032]
+responses:
+  "200":
+    description: Enrollment updated successfully (empty body)
+  "401":
+    description: Unauthorized – JWT missing or invalid
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: "JWT missing or invalid"
+  "403":
+    description: Forbidden – JWT valid but user not admin or instructor, or course does not exist
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: "User not authorized to update enrollment for this course"
+  "409":
+    description: Conflict – enrollment data is invalid
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            Error:
+              type: string
+              example: "Enrollment data is invalid"

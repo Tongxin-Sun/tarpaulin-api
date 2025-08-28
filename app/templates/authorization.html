@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script type="module">
+        import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+        mermaid.initialize({ startOnLoad: true, theme: 'forest' });
+    </script>
+    <title>OAuth 2.0</title>
+</head>
+
+<body>
+    <header>
+        <h1>OAuth 2.0</h1>
+        <p>OAuth 2.0 is an <span class="text-bold text-italic">authorization</span> protocol that is widely adapted
+            among web
+            services. This section
+            introduces the
+            workflow of OAuth 2.0.</p>
+        <p class="back-home"><a href="/">← Back to Home</a></p>
+    </header>
+    <div class="mermaid">
+        sequenceDiagram
+        participant endUser as End&nbsp;User
+        participant client as Client
+        participant server as Server&nbsp;protected&nbsp;resource
+        endUser->> client: Step 1
+        client->>endUser: Step 2 (redirect end-user to server)
+        endUser->>server: Step 2 (client id, permissions, state)
+        server->>endUser: Step 3 (asking end-user's OK)
+        endUser->>server: Step 4 (end-user replies OK)
+        server->>endUser: Step 4 (redirect end-user to client)
+        endUser->>client: Step 4 (access code, state)
+        Note left of client: Step 5
+        client->>server: Step 6 (access code, client secret)
+        Note right of server: Step 7
+        server->>client: Step 8 (access token)
+        Note left of client: Step 9
+    </div>
+    <section>
+        <p>
+            Before the OAuth 2.0 server side flow takes place, a client should first register with the
+            server to obtain a <span class="text-bold">client ID</span> and <span class="text-bold">client
+                secret</span>.
+        </p>
+        <p>
+            <span class="text-bold">Step 1:</span> The end-user requests that the client access a protected resource on
+            the
+            server.
+        </p>
+        <p>
+            <span class="text-bold">Step 2:</span> The client uses redirection to send the end-user's browser to the
+            server along with a list of
+            <span class="text-bold">permissions</span> the client is asking for, the <span class="text-bold">client
+                ID</span> and a random secret
+            phrase that the client just made up
+            as parameters.
+            This random secret phrase is sent as the value of a parameter named <span class="text-bold">state</span>.
+            Specifically, the client sends
+            back a response and that response will have in the location the URL to which the redirection should happen.
+        </p>
+        <p>
+            <span class="text-bold">Step 3: </span>After the end-user authenticates with the server, the server asks the
+            end-user if they are OK with giving the client the access it is asking for.
+        </p>
+        <p>
+            <span class="text-bold">Step 4: </span>If the end-user says "OK", then the server redirects the end-user
+            back to the client with an <span class="text-bold">access (or authorization) code</span> from the server and
+            the <span class="text-bold">state</span> parameter set to the
+            random secret phrase that the client made up moments ago.
+        </p>
+        <p>
+            <span class="text-bold">Step 5: </span>The client verifies that the value of the state parameter is the same
+            that it sent to
+            this end-user (this is done to prevent cross-site request forgery) and gets the access code.
+        </p>
+        <p>
+            <span class="text-bold">Step 6: </span>The client sends the access code along with the client secret to the
+            server.
+        </p>
+        <p>
+            <span class="text-bold">Step 7: </span>The server makes sure that the client secret is associated with that
+            client and that the access code is the one it gave out for the end-user.
+        </p>
+        <p>
+            <span class="text-bold">Step 8: </span>The server sends back an <span class="text-bold">access token</span>
+            to the client. The server
+            associates this token with the end-user and the permissions allowed for this token.
+        </p>
+        <p>
+            <span class="text-bold">Step 9: </span>The client saves the access token and sends it along with all
+            requests to get the end-user's information.
+        </p>
+        <p>
+            <span class="text-italic text-bold">Note:</span> The above flow is the classic OAuth 2.0 flow where it uses
+            the
+            window.location.href (or HTTP 302
+            direct) for direction. Modern OAuth 2.0 flow employs a "One-tap" flow where instead of redirecting the whole
+            tab, the client opens a popup window or overlay. Despite these nuances, the basic steps are the same.
+        </p>
+
+    </section>
+
+</body>
+
+</html>

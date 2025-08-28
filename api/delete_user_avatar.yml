@@ -1,0 +1,44 @@
+tags:
+  - "User"
+summary: "Delete a user's avatar"
+description: "Delete the file stored in Google Cloud Storage as the user's avatar. JWT must belong to the user whose ID is in the path."
+security:
+  - bearerAuth: []
+parameters:
+  - name: "Authorization"
+    in: "header"
+    description: "JWT token in Bearer format"
+    required: true
+    type: "string"
+  - name: "user_id"
+    in: "path"
+    description: "ID of the user"
+    required: true
+    type: "string"
+responses:
+  204:
+    description: "Avatar successfully deleted. No response body."
+  401:
+    description: "Unauthorized: JWT missing or invalid"
+    schema:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "JWT missing or invalid"
+  403:
+    description: "Forbidden: JWT valid but not for this user"
+    schema:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "JWT does not belong to the user"
+  404:
+    description: "Not Found: User has no avatar"
+    schema:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "User has no avatar"

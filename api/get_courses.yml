@@ -1,0 +1,57 @@
+tags:
+  - Course
+operationId: get_courses
+summary: Get all courses
+description: >
+  Retrieve a paginated list of courses. The list is sorted by `subject`. Each page
+  contains up to 3 courses. The `next` property contains the URL for the next page.
+security: []
+parameters:
+  - name: offset
+    in: query
+    description: "Pagination offset (optional)"
+    required: false
+    type: integer
+    default: 0
+  - name: limit
+    in: query
+    description: "Pagination limit (optional, page size 3)"
+    required: false
+    type: integer
+    default: 3
+responses:
+  "200":
+    description: List of courses (paginated)
+    schema:
+      type: object
+      properties:
+        courses:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                example: 5633378543992832
+              instructor_id:
+                type: integer
+                example: 5644004762845184
+              number:
+                type: integer
+                example: 493
+              self:
+                type: string
+                example: "http://localhost:8080/courses/5633378543992832"
+              subject:
+                type: string
+                example: "CS"
+              term:
+                type: string
+                example: "fall-24"
+              title:
+                type: string
+                example: "Cloud Application Development"
+        next:
+          type: string
+          description: "URL for next page, if applicable"
+          example: "http://localhost:8080/courses?offset=3&limit=3"

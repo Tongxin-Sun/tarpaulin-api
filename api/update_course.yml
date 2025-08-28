@@ -1,0 +1,104 @@
+tags:
+  - Course
+operationId: update_course
+summary: Update a course
+description: >
+  Perform a partial update on a course. Student enrollment cannot be modified
+  via this endpoint. Only users with the role `admin` can update courses.
+security:
+  - bearerAuth: []
+parameters:
+  - name: "Authorization"
+    in: "header"
+    description: "JWT token in Bearer format"
+    required: true
+    type: string
+  - name: course_id
+    in: path
+    description: "ID of the course"
+    required: true
+    type: integer
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          subject:
+            type: string
+            maxLength: 4
+            example: "CS"
+          number:
+            type: integer
+            example: 493
+          title:
+            type: string
+            maxLength: 50
+            example: "Cloud Application Development"
+          term:
+            type: string
+            maxLength: 10
+            example: "fall-24"
+          instructor_id:
+            type: integer
+            example: 5644004762845184
+responses:
+  "200":
+    description: Course successfully updated
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            id:
+              type: integer
+              example: 5710353417633792
+            instructor_id:
+              type: integer
+              example: 5644004762845184
+            number:
+              type: integer
+              example: 493
+            self:
+              type: string
+              example: "http://localhost:8080/courses/5710353417633792"
+            subject:
+              type: string
+              example: "CS"
+            term:
+              type: string
+              example: "fall-24"
+            title:
+              type: string
+              example: "Cloud Application Development"
+  "400":
+    description: Bad Request – invalid instructor_id
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: "Invalid instructor_id"
+  "401":
+    description: Unauthorized – JWT missing or invalid
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: "JWT missing or invalid"
+  "403":
+    description: Forbidden – JWT valid but not an admin or course doesn’t exist
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: "User not authorized to update this course"

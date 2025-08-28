@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Tarpaulin API</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <header>
+    <h1>Tarpaulin API</h1>
+    <p>A secure platform for managing users, courses, and enrollments with cloud storage and authentication.</p>
+  </header>
+
+  <section>
+    <h2>🚀 Project Overview</h2>
+    <p>
+      This project is a full-featured backend system that supports user authentication,
+      course management, student enrollment, and profile photo uploads. It follows
+      REST API principles, includes robust error handling, and integrates with cloud
+      services for scalability.
+    </p>
+  </section>
+
+  <section>
+    <h2>💻 Tech Stack</h2>
+    <ul class="tech-stack">
+      <li>Flask (Python), Jinja2 templates</li>
+      <li>Flasgger (Swagger UI)</li>
+      <li>
+        <div>Auth0 (<a href="/authorization">OAuth 2.0</a> & <a href="authentication">OpenID
+            Connect</a>), JWT</div>
+      </li>
+      <li>Google Cloud Datastore (NoSQL)</li>
+      <li>Google Cloud Storage (avatars)</li>
+      <li>Requests library, REST API design, structured error handling</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>📄 API Documentation</h2>
+    <p>Explore all endpoints and try them out directly via Swagger UI below.</p>
+
+    <p>
+      Note: To interact with these endpoints, you will need a valid JWT. There are 9 pre-generated users available for
+      testing,
+      each assigned one of three roles: <strong>admin</strong>, <strong>instructor</strong>, or
+      <strong>student</strong>.
+      Each role grants different permissions for performing API actions.
+      You can obtain a JWT for any user by using the login endpoint below.
+    </p>
+
+    <ul>
+      <li>Admin user: <code>admin1@osu.com</code></li>
+      <li>Instructor users: <code>instructor1@osu.com</code> and <code>instructor2@osu.com</code></li>
+      <li>Student users: <code>student1@osu.com</code> through <code>student6@osu.com</code></li>
+      <li>All users share the same password: <code>CzvbE8^6ZanVG&5n</code></li>
+    </ul>
+
+    <iframe src="{{ url_for('flasgger.apidocs') }}" class="swagger-frame"></iframe>
+  </section>
+
+
+  <footer>
+    <p>Built with ❤️ using Flask and Google Cloud</p>
+  </footer>
+</body>
+
+</html>
