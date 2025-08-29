@@ -23,6 +23,7 @@ jobs:
       run: npm install -g newman
 
     - name: Run Postman collection
+      working-directory: ./postman
       run: |
         newman run postman/tarpaulin.postman_collection.json \
         -e postman/tarpaulin.postman_environment.json \
