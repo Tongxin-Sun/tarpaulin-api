@@ -25,6 +25,6 @@ jobs:
     - name: Run Postman collection
       working-directory: ./postman
       run: |
-        newman run postman/tarpaulin.postman_collection.json \
-        -e postman/tarpaulin.postman_environment.json \
+        newman run tarpaulin.postman_collection.json \
+        -e tarpaulin.postman_environment.json \
         --bail
