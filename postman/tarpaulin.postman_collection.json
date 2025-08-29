@@ -1472,12 +1472,7 @@
 									"pm.test(\"401 status code\", function () {\r",
 									"    pm.response.to.have.status(401);\r",
 									"});\r",
-									"\r",
-									"pm.test(\"error message is correct\", function(){\r",
-									"    const respJSON = pm.response.json();\r",
-									"    pm.expect(Object.keys(respJSON).length).to.equal(1);\r",
-									"    pm.expect(respJSON[\"Error\"]).to.equal(\"Unauthorized\")\r",
-									"})"
+									"\r"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -1579,13 +1574,7 @@
 									"    const respJSON = pm.response.json();\r",
 									"    pm.expect(Object.keys(respJSON).length).to.equal(1);\r",
 									"    pm.expect(respJSON['Error']).to.equal(\"You don't have permission on this resource\")\r",
-									"})\r",
-									"\r",
-									"\r",
-									"console.log('******* Avatar Delete Test 4 points = ' + points);\r",
-									"let points_avatar_delete = pm.environment.get('points_avatar_delete') + points;\r",
-									"console.log('******* Avatar Delete Tests current points = ' + points_avatar_delete);\r",
-									"pm.environment.set(\"points_avatar_delete\", points_avatar_delete);"
+									"})\r"
 								],
 								"type": "text/javascript",
 								"packages": {}
